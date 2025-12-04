@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ランダムサイト表示</title>
+</head>
+<body>
+  <h1>ランダムサイト表示ボタン</h1>
+  <button id="randomButton">ランダムサイトを開く</button>
+
+  <script>
+    const sites = [
+  // Wikipedia・辞書系
+  {url: "https://ja.wikipedia.org/wiki/量子力学", name: "Wikipedia: 量子力学"},
+  {url: "https://ja.wikipedia.org/wiki/相対性理論", name: "Wikipedia: 相対性理論"},
+  {url: "https://ja.wikipedia.org/wiki/美学", name: "Wikipedia: 美学"},
+  {url: "https://ja.wikipedia.org/wiki/脳科学", name: "Wikipedia: 脳科学"},
+  {url: "https://ja.wikipedia.org/wiki/存在論", name: "Wikipedia: 存在論"},
+  {url: "https://en.wikipedia.org/wiki/Chaos_theory", name: "Wikipedia: Chaos Theory"},
+  {url: "https://en.wikipedia.org/wiki/Artificial_intelligence", name: "Wikipedia: AI"},
+
+  // YouTube ミーム動画系
+  {url: "https://www.youtube.com/watch?v=2Z4m4lnjxkY", name: "Nyan Cat"},
+  {url: "https://www.youtube.com/watch?v=ZZ5LpwO-An4", name: "He-Man HEYYEYAA"},
+  {url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", name: "Rickroll"},
+  {url: "https://www.youtube.com/watch?v=QH2-TGUlwu4", name: "Nyan Cat HD"},
+  {url: "https://www.youtube.com/watch?v=ub82Xb1C8os", name: "Trololo"},
+  {url: "https://www.youtube.com/watch?v=j5a0jTc9S10", name: "Keyboard Cat"},
+  {url: "https://www.youtube.com/watch?v=oHg5SJYRHA0", name: "Classic Rickroll"},
+
+  // インタラクティブ・チープ系
+  {url: "http://www.staggeringbeauty.com", name: "Staggering Beauty"},
+  {url: "http://www.omfgdogs.com", name: "OMFG Dogs"},
+  {url: "http://www.koalastothemax.com", name: "Koalas to the Max"},
+  {url: "http://www.pointerpointer.com", name: "Pointer Pointer"},
+  {url: "http://www.trypap.com", name: "Trypap"},
+  {url: "http://www.fallingfalling.com", name: "Falling Falling"},
+  {url: "http://www.yesno.wtf", name: "Yes or No"},
+  {url: "http://www.ismycomputeron.com", name: "Is My Computer On?"},
+  {url: "http://www.howmanypeopleareinspacerightnow.com", name: "People in Space"},
+
+  // ホラー・不思議系
+  {url: "https://creepypasta.fandom.com/wiki/Main_Page", name: "Creepypasta"},
+  {url: "https://www.scaryforkids.com", name: "Scary for Kids"},
+  {url: "https://www.horrorpedia.com", name: "Horrorpedia"},
+
+  // ニュース系
+  {url: "https://www.asahi.com/", name: "朝日新聞"},
+  {url: "https://www.nhk.or.jp/", name: "NHK"},
+  {url: "https://www.bbc.com/news", name: "BBC News"},
+  {url: "https://www.cnn.com", name: "CNN"},
+  {url: "https://www.reuters.com", name: "Reuters"},
+  {url: "https://www.nytimes.com", name: "New York Times"},
+  {url: "https://www.theguardian.com/international", name: "The Guardian"},
+
+  // エンジェルパーク武蔵系・特殊系
+  {url: "http://www.angelpark-musashi.com", name: "エンジェルパーク武蔵"},
+  {url: "http://www.angelpark-musashi.com/gallery", name: "エンジェルパーク 武蔵ギャラリー"}
+
+// 学術・辞書・知識系
+{url: "https://ja.wikipedia.org/wiki/宇宙論", name: "Wikipedia: 宇宙論"},
+{url: "https://ja.wikipedia.org/wiki/芸術", name: "Wikipedia: 芸術"},
+{url: "https://en.wikipedia.org/wiki/Philosophy_of_mind", name: "Wikipedia: Philosophy of Mind"},
+{url: "https://en.wikipedia.org/wiki/Information_theory", name: "Wikipedia: 情報理論"},
+{url: "https://en.wikipedia.org/wiki/Quantum_computing", name: "Wikipedia: 量子コンピュータ"},
+
+// YouTube・おもしろ・ミーム系
+{url: "https://www.youtube.com/watch?v=fLexgOxsZu0", name: "Happy / ファレル・ウィリアムス"},
+{url: "https://www.youtube.com/watch?v=9EcjWd-O4jI", name: "Charlie the Unicorn / チャーリーザユニコーン"},
+{url: "https://www.youtube.com/watch?v=dMH0bHeiRNg", name: "Evolution of Dance / ダンスの進化"},
+{url: "https://www.youtube.com/watch?v=L_jWHffIx5E", name: "N Sync / Bye Bye Bye"},
+{url: "https://www.youtube.com/watch?v=VbfpW0pbvaU", name: "PSY / Gangnam Style"},
+{url: "https://www.youtube.com/watch?v=oHg5SJYRHA0", name: "Rickroll Classic / リックロール"},
+
+// インタラクティブ・チープ系
+{url: "http://www.hackers.org", name: "Hackers Interactive"},
+{url: "http://www.pointerpointer.com", name: "Pointer Pointer"},
+{url: "http://www.trypap.com", name: "Trypap"},
+{url: "http://www.omfgdogs.com", name: "OMFG Dogs"},
+{url: "http://www.staggeringbeauty.com", name: "Staggering Beauty"},
+{url: "http://www.koalastothemax.com", name: "Koalas to the Max"},
+
+// ホラー・不思議系
+{url: "https://www.creepypasta.com", name: "Creepypasta Official"},
+{url: "https://www.horrorpedia.com", name: "Horrorpedia"},
+{url: "https://www.reddit.com/r/nosleep/", name: "Reddit NoSleep"},
+{url: "https://www.scaryforkids.com", name: "Scary for Kids"},
+
+// ニュース・記事系
+{url: "https://www.bbc.com/news", name: "BBC News"},
+{url: "https://www.cnn.com/", name: "CNN"},
+{url: "https://www.theguardian.com/international", name: "The Guardian"},
+{url: "https://www.nhk.or.jp/", name: "NHK"},
+{url: "https://www.asahi.com/", name: "朝日新聞"},
+{url: "https://www.japantimes.co.jp/", name: "Japan Times"},
+
+// エンタメ・特殊系
+{url: "http://www.angelpark-musashi.com/shop", name: "エンジェルパーク武蔵 ショップ"},
+{url: "http://www.angelpark-musashi.com/events", name: "エンジェルパーク武蔵 イベント"},
+{url: "http://www.elfyourself.com/", name: "Elf Yourself"},
+{url: "http://www.howstuffworks.com/", name: "HowStuffWorks"},
+{url: "http://www.boredpanda.com/", name: "Bored Panda"},
+{url: "http://www.zoomquilt.org", name: "Zoomquilt"},
+{url: "http://www.heeeeeeeey.com", name: "Heeeeeeeey"}
+
+// 学術・辞書・知識系
+{url: "https://ja.wikipedia.org/wiki/数学", name: "Wikipedia: 数学"},
+{url: "https://ja.wikipedia.org/wiki/心理学", name: "Wikipedia: 心理学"},
+{url: "https://en.wikipedia.org/wiki/Cognitive_science", name: "Wikipedia: 認知科学"},
+{url: "https://en.wikipedia.org/wiki/Astronomy", name: "Wikipedia: 天文学"},
+{url: "https://en.wikipedia.org/wiki/Philosophy", name: "Wikipedia: 哲学"},
+
+// YouTube・おもしろ・ミーム系
+{url: "https://www.youtube.com/watch?v=tVj0ZTS4WF4", name: "Bad Romance / レディー・ガガ"},
+{url: "https://www.youtube.com/watch?v=ZZ5LpwO-An4", name: "He-Man HEYYEYAA"},
+{url: "https://www.youtube.com/watch?v=CduA0TULnow", name: "Chocolate Rain"},
+{url: "https://www.youtube.com/watch?v=2vjPBrBU-TM", name: "Sia - Chandelier"},
+{url: "https://www.youtube.com/watch?v=kffacxfA7G4", name: "Justin Bieber - Baby"},
+
+// インタラクティブ・チープ系
+{url: "http://www.fallingfalling.com", name: "Falling Falling"},
+{url: "http://www.ismycomputeron.com", name: "Is My Computer On?"},
+{url: "http://www.yesno.wtf", name: "Yes or No"},
+{url: "http://www.pointerpointer.com", name: "Pointer Pointer"},
+{url: "http://www.trypap.com", name: "Trypap"},
+{url: "http://www.koalastothemax.com", name: "Koalas to the Max"},
+{url: "http://www.staggeringbeauty.com", name: "Staggering Beauty"},
+
+// ホラー・不思議系
+{url: "https://www.creepypasta.com", name: "Creepypasta"},
+{url: "https://www.horrorpedia.com", name: "Horrorpedia"},
+{url: "https://www.reddit.com/r/nosleep/", name: "Reddit NoSleep"},
+{url: "https://www.scaryforkids.com", name: "Scary for Kids"},
+{url: "https://creepypasta.fandom.com/wiki/Main_Page", name: "Creepypasta Fandom"},
+
+// ニュース・記事系
+{url: "https://www.bbc.com/news", name: "BBC News"},
+{url: "https://www.cnn.com/", name: "CNN"},
+{url: "https://www.theguardian.com/international", name: "The Guardian"},
+{url: "https://www.nhk.or.jp/", name: "NHK"},
+{url: "https://www.asahi.com/", name: "朝日新聞"},
+{url: "https://www.japantimes.co.jp/", name: "Japan Times"},
+{url: "https://www.reuters.com/", name: "Reuters"},
+{url: "https://www.nytimes.com/", name: "New York Times"},
+
+// エンタメ・特殊系
+{url: "http://www.angelpark-musashi.com/shop", name: "エンジェルパーク武蔵 ショップ"},
+{url: "http://www.angelpark-musashi.com/events", name: "エンジェルパーク武蔵 イベント"},
+{url: "http://www.elfyourself.com/", name: "Elf Yourself"},
+{url: "http://www.howstuffworks.com/", name: "HowStuffWorks"},
+{url: "http://www.boredpanda.com/", name: "Bored Panda"},
+{url: "http://www.zoomquilt.org", name: "Zoomquilt"},
+{url: "http://www.heeeeeeeey.com", name: "Heeeeeeeey"},
+{url: "http://www.trashloop.com", name: "Trashloop"}
+
+// 新しい学術・辞書系
+{url: "https://www.britannica.com/science/Quantum-mechanics", name: "Britannica: Quantum Mechanics / 量子力学"},
+{url: "https://www.britannica.com/science/Relativity-theory", name: "Britannica: Relativity / 相対性理論"},
+{url: "https://www.britannica.com/topic/Philosophy", name: "Britannica: Philosophy / 哲学"},
+{url: "https://www.britannica.com/science/Neuroscience", name: "Britannica: Neuroscience / 脳科学"},
+{url: "https://www.britannica.com/science/Cosmos", name: "Britannica: Cosmos / 宇宙論"},
+
+// 新しいYouTube・おもしろ系
+{url: "https://www.youtube.com/watch?v=1aV-tZP0v1k", name: "Charlie the Unicorn / チャーリーザユニコーン"},
+{url: "https://www.youtube.com/watch?v=0j6AZhZFbJw", name: "Dramatic Chipmunk 2 / ドラマチックリス2"},
+{url: "https://www.youtube.com/watch?v=60ItHLz5WEA", name: "Alan Walker - Faded / アランウォーカー"},
+{url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", name: "Luis Fonsi - Despacito / デスパシート"},
+{url: "https://www.youtube.com/watch?v=KQ6zr6kCPj8", name: "PSY - Daddy / PSYダディ"},
+
+// 新しいインタラクティブ・チープ系
+{url: "http://www.websudoku.com/", name: "Web Sudoku / ウェブ数独"},
+{url: "http://www.fallingfalling.com", name: "Falling Falling / フォーリングフォーリング (新規版)"},
+{url: "http://www.milliondollarhomepage.com", name: "Million Dollar Homepage / ミリオンダラーホームページ"},
+{url: "http://www.bouncingdvdlogo.com", name: "Bouncing DVD Logo / バウンシングDVDロゴ (新規)"},
+{url: "http://www.patience-is-a-virtue.org", name: "Patience is a Virtue / 忍耐の美徳"},
+
+// 新しいホラー・不思議系
+{url: "https://www.scaryforkids.com/creepy-stories/", name: "Creepy Stories / クリーピーストーリー"},
+{url: "https://www.theparanormalguide.com/", name: "The Paranormal Guide / パラノーマルガイド"},
+{url: "https://www.horrorsociety.com/", name: "Horror Society / ホラーソサエティ"},
+{url: "https://www.strangemag.com/", name: "Strange Magazine / ストレンジマガジン"},
+{url: "https://www.mysteriousuniverse.org/", name: "Mysterious Universe / ミステリアスユニバース"},
+
+// 新しいニュース・記事系
+{url: "https://www.economist.com/", name: "The Economist / エコノミスト"},
+{url: "https://www.nbcnews.com/", name: "NBC News / 米国ニュース"},
+{url: "https://www.washingtonpost.com/", name: "Washington Post / ワシントンポスト"},
+{url: "https://www.ft.com/", name: "Financial Times / フィナンシャルタイムズ"},
+{url: "https://www.aljazeera.com/", name: "Al Jazeera / アルジャジーラ"},
+
+// 新しいエンタメ・特殊系
+{url: "http://www.angelpark-musashi.com/virtual-tour", name: "エンジェルパーク武蔵 / バーチャルツアー"},
+{url: "http://www.angelpark-musashi.com/gallery", name: "エンジェルパーク武蔵 / ギャラリー"},
+{url: "https://www.howstuffworks.com/quiz", name: "HowStuffWorks Quiz / ハウスタッフクイズ"},
+{url: "http://www.boredpanda.com/funny-stuff", name: "Bored Panda Funny / ボードパンダおもしろ"},
+{url: "http://www.weirdworm.com", name: "Weird Worm / ウィアードワーム"},
+{url: "http://www.foundmagazine.com", name: "Found Magazine / ファウンドマガジン"}
+
+// 新しい学術・辞書系
+{url: "https://plato.stanford.edu/entries/quantum-mechanics/", name: "Stanford Encyclopedia: Quantum Mechanics / 量子力学"},
+{url: "https://plato.stanford.edu/entries/relativity-special/", name: "Stanford Encyclopedia: Special Relativity / 特殊相対性理論"},
+{url: "https://plato.stanford.edu/entries/aesthetics/", name: "Stanford Encyclopedia: Aesthetics / 美学"},
+{url: "https://plato.stanford.edu/entries/consciousness/", name: "Stanford Encyclopedia: Consciousness / 意識"},
+{url: "https://plato.stanford.edu/entries/metaphysics/", name: "Stanford Encyclopedia: Metaphysics / 形而上学"},
+
+// 新しいYouTube・おもしろ系
+{url: "https://www.youtube.com/watch?v=oHg5SJYRHA0", name: "Rickroll Classic / リックロールクラシック"},
+{url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", name: "Rick Astley Never Gonna Give You Up / リックアストリー"},
+{url: "https://www.youtube.com/watch?v=MtN1YnoL46Q", name: "Dramatic Chipmunk / ドラマチックリス"},
+{url: "https://www.youtube.com/watch?v=QH2-TGUlwu4", name: "Nyan Cat / ニャンキャット"},
+{url: "https://www.youtube.com/watch?v=j5a0jTc9S10", name: "Keyboard Cat / キーボードキャット"},
+
+// 新しいインタラクティブ・チープ系
+{url: "http://www.fallingfalling.com", name: "Falling Falling / フォーリングフォーリング"},
+{url: "http://www.pointerpointer.com", name: "Pointer Pointer / ポインターポインター"},
+{url: "http://www.trypap.com", name: "Trypap / トライパップ"},
+{url: "http://www.ismycomputeron.com", name: "Is My Computer On? / コンピュータ起動確認"},
+{url: "http://www.yesno.wtf", name: "Yes or No / イエスオアノー"},
+
+// 新しいホラー・不思議系
+{url: "https://www.creepypasta.com/", name: "Creepypasta.com / クリーピーパスタ"},
+{url: "https://www.scaryforkids.com", name: "Scary for Kids / スケアリーフォーキッズ"},
+{url: "https://www.horrorpedia.com", name: "Horrorpedia / ホラーペディア"},
+{url: "https://www.ghoststudies.org", name: "Ghost Studies / ゴーストスタディーズ"},
+{url: "https://www.paranormalis.com", name: "Paranormalis / パラノーマリス"},
+
+// 新しいニュース・記事系
+{url: "https://www.bbc.com/news", name: "BBC News / 英国BBCニュース"},
+{url: "https://www.cnn.com/", name: "CNN / アメリカCNNニュース"},
+{url: "https://www.japantimes.co.jp/", name: "The Japan Times / ジャパンタイムズ"},
+{url: "https://www.nytimes.com/", name: "New York Times / ニューヨークタイムズ"},
+{url: "https://www.reuters.com/", name: "Reuters / ロイター"},
+
+// 新しいエンタメ・体験系
+{url: "http://www.angelpark-musashi.com/virtual-tour", name: "エンジェルパーク武蔵 / バーチャルツアー"},
+{url: "http://www.angelpark-musashi.com/gallery", name: "エンジェルパーク武蔵 / ギャラリー"},
+{url: "https://www.howstuffworks.com/quiz", name: "HowStuffWorks Quiz / ハウスタッフクイズ"},
+{url: "http://www.boredpanda.com/funny-stuff", name: "Bored Panda Funny / ボードパンダおもしろ"},
+{url: "http://www.foundmagazine.com", name: "Found Magazine / ファウンドマガジン"}
+
+const sites = [
+  // 学術・辞書系
+  {url: "https://www.britannica.com/science/Quantum-mechanics-physics", name: "Britannica: Quantum Mechanics / 量子力学"},
+  {url: "https://www.britannica.com/science/Relativity-theory", name: "Britannica: Relativity / 相対性理論"},
+  {url: "https://www.britannica.com/topic/Aesthetics-philosophy", name: "Britannica: Aesthetics / 美学"},
+  {url: "https://www.britannica.com/topic/Consciousness-philosophy", name: "Britannica: Consciousness / 意識"},
+  {url: "https://www.britannica.com/topic/Metaphysics-philosophy", name: "Britannica: Metaphysics / 形而上学"},
+  
+  // YouTube・おもしろ系
+  {url: "https://www.youtube.com/watch?v=9bZkp7q19f0", name: "Gangnam Style / 江南スタイル"},
+  {url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", name: "Despacito / デスパシート"},
+  {url: "https://www.youtube.com/watch?v=ZZ5LpwO-An4", name: "He-Man HEYYEYAA / ヒーマンミーム"},
+  {url: "https://www.youtube.com/watch?v=MtN1YnoL46Q", name: "Dramatic Chipmunk / ドラマチックリス"},
+  {url: "https://www.youtube.com/watch?v=ub82Xb1C8os", name: "Trololo / トロロロ"},
+  
+  // インタラクティブ・チープ系
+  {url: "http://www.koalastothemax.com", name: "Koalas to the Max / コアラズトゥザマックス"},
+  {url: "http://www.omfgdogs.com", name: "OMFG Dogs / オムフグドッグス"},
+  {url: "http://www.staggeringbeauty.com", name: "Staggering Beauty / スタッガリングビューティー"},
+  {url: "http://www.trypap.com", name: "Trypap / トライパップ"},
+  {url: "http://www.pointerpointer.com", name: "Pointer Pointer / ポインターポインター"},
+  
+  // ホラー・不思議系
+  {url: "https://www.creepypasta.com/", name: "Creepypasta / クリーピーパスタ"},
+  {url: "https://www.scaryforkids.com", name: "Scary for Kids / スケアリーフォーキッズ"},
+  {url: "https://www.horrorpedia.com", name: "Horrorpedia / ホラーペディア"},
+  {url: "https://www.paranormalis.com", name: "Paranormalis / パラノーマリス"},
+  {url: "https://www.ghoststudies.org", name: "Ghost Studies / ゴーストスタディーズ"},
+  
+  // ニュース・記事系
+  {url: "https://www.bbc.com/news", name: "BBC News / 英国BBCニュース"},
+  {url: "https://www.cnn.com/", name: "CNN / アメリカCNNニュース"},
+  {url: "https://www.japantimes.co.jp/", name: "The Japan Times / ジャパンタイムズ"},
+  {url: "https://www.nytimes.com/", name: "New York Times / ニューヨークタイムズ"},
+  {url: "https://www.reuters.com/", name: "Reuters / ロイター"},
+  {url: "https://www.aljazeera.com/", name: "Al Jazeera / アルジャジーラ"},
+  {url: "https://www.dw.com/en/top-stories/s-9097", name: "DW News / ドイツDWニュース"},
+  {url: "https://www.theguardian.com/international", name: "The Guardian / ガーディアン"},
+  
+  // エンタメ・体験系
+  {url: "http://www.angelpark-musashi.com/virtual-tour", name: "エンジェルパーク武蔵 / バーチャルツアー"},
+  {url: "http://www.angelpark-musashi.com/gallery", name: "エンジェルパーク武蔵 / ギャラリー"},
+  {url: "https://www.howstuffworks.com/quiz", name: "HowStuffWorks Quiz / ハウスタッフクイズ"},
+  {url: "http://www.boredpanda.com/funny-stuff", name: "Bored Panda Funny / ボードパンダおもしろ"},
+  {url: "http://www.foundmagazine.com", name: "Found Magazine / ファウンドマガジン"},
+  
+  // 新しい体験系・遊び系
+  {url: "http://www.zoomquilt.org", name: "Zoomquilt / ズームクイル"},
+  {url: "http://www.heeeeeeeey.com", name: "Heeeeeeeey / ヒィィィィィ"},
+  {url: "http://www.thatsthefinger.com", name: "That's the Finger / ザッツザフィンガー"},
+  {url: "http://www.fallingfalling.com", name: "Falling Falling / フォーリングフォーリング"},
+  {url: "http://www.ismycomputeron.com", name: "Is My Computer On? / コンピュータ起動確認"}
+
+// 未解決事件・ロストメディア系（安全に閲覧できるもの）
+{url: "https://lostmediawiki.com", name: "Lost Media Wiki / 失われたメディア"},
+{url: "https://www.atlasobscura.com", name: "Atlas Obscura / 世界の奇妙な場所"},
+{url: "https://www.mysteriousuniverse.org", name: "Mysterious Universe / ミステリアスユニバース"},
+{url: "https://www.unsolved-mysteries.com", name: "Unsolved Mysteries Archive / 未解決ミステリー"},
+{url: "https://www.weirduniverse.net", name: "Weird Universe / 奇妙な世界"},
+{url: "https://forgottenlanguages-full.forgottenlanguages.org", name: "Forgotten Languages / ファウンデーション言語プロジェクト"},
+{url: "https://www.odditycentral.com", name: "Oddity Central / 奇妙なニュース"},
+{url: "https://theghostinmymachine.com", name: "The Ghost in My Machine / 奇妙な事件と都市伝説"},
+{url: "https://obscurehorror.com", name: "Obscure Horror / マイナー恐怖コンテンツ"},
+{url: "https://astronomy.com/news", name: "Astronomy News / 宇宙のニュース"},
+{url: "https://www.space.com/news", name: "Space.com / スペースニュース"},
+{url: "https://www.abandonedspaces.com", name: "Abandoned Spaces / 廃墟と消えた場所"},
+{url: "https://www.darkhistorymagazine.com", name: "Dark History Magazine / ダークヒストリー"},
+{url: "https://www.messynessychic.com/category/lost-found", name: "MessyNessyChic: Lost & Found / 失われたもの特集"},
+{url: "https://www.metafilter.com/tags/mystery", name: "MetaFilter Mystery / 不思議なスレまとめ"},
+{url: "https://www.futilitycloset.com/category/mysteries", name: "Futility Closet: Mysteries / ミステリー特集"},
+{url: "https://archive.org/details/lostmedia", name: "Archive.org Lost Media / 失われたメディアアーカイブ"},
+{url: "https://mapstreetview.com", name: "Random Street View / 世界の知らない場所へ飛ぶ"},
+{url: "https://earthview.withgoogle.com", name: "Google Earth View / 地球の断片"},
+{url: "https://neal.fun/infinite-craft/", name: "Infinite Craft / 世界を生成し続ける遊び"},
+
+{url: "http://www.geocities.jp/sazanami_taro/", name: "さざなみ太郎の部屋 / 個人手作りサイト"},
+{url: "http://www5f.biglobe.ne.jp/~nanko/", name: "なんこ村 / 素朴な個人HP"},
+{url: "http://www5f.biglobe.ne.jp/~zen/", name: "禅の部屋 / 古いレイアウトの個人HP"},
+{url: "http://www7b.biglobe.ne.jp/~koro3/", name: "KORO3の小部屋 / 昔のホームページ感"},
+{url: "https://www.kisetsunotoshi.com", name: "季節の歳時記 / 昔ながらの文章サイト"},
+{url: "http://park.geocities.jp/ku_haku_sya/", name: "空白舎（アーカイブ） / 無造作な個人世界"},
+{url: "http://www.asahi-net.or.jp/~zi3h-kwrz/", name: "地震資料室 / 個人研究サイトの圧"},
+{url: "http://www.maroon.dti.ne.jp/nakana/", name: "なかなの部屋 / シンプルな手作り感"},
+{url: "https://www7.plala.or.jp/hikyoumap/", name: "秘境駅MAP / 個人作成の秘境データ"},
+{url: "http://www.alpha-net.ne.jp/users2/knight9/", name: "ラビリンスページ / 古い迷宮サイト"},
+{url: "http://www6.airnet.ne.jp/maekawa/", name: "前川世界 / 手作り数学・雑学"},
+{url: "http://www2s.biglobe.ne.jp/~nippon/", name: "日本の昔話の家 / 超素朴サイト"},
+{url: "http://www.ann.hi-ho.ne.jp/jiro/", name: "じろーのホームページ / 個人日記系"},
+{url: "http://www.mahoroba.ne.jp/~gonbe007/", name: "ごんべ007 / 手作り雑多サイト"},
+{url: "http://www.geocities.co.jp/SiliconValley-Bay/8752/", name: "個人ソフトウェア置き場（アーカイブ）"},
+{url: "http://www.nnh.to", name: "日本苗字研究会 / 手作り検索サイト"},
+{url: "http://www2.ttcn.ne.jp/~honkawa/", name: "本川資料館 / 個人データの圧"},
+
+  {url: "https://www5f.biglobe.ne.jp/~ayum/", name: "あゆみの部屋（個人ホームページ）"},
+  {url: "https://www.masaki2525.com", name: "まさきの部屋（個人サイト）"},
+  {url: "http://www.geocities.jp/hiro_tanuki/", name: "たぬきの里（個人・研究系）"},
+  {url: "http://park18.wakwak.com/~myroom/", name: "MyRoom（個人の趣味サイト）"},
+  {url: "http://www.tetsuyasugiyama.com", name: "杉山哲也 個人サイト"},
+  {url: "http://www.h3.dion.ne.jp/~nkn/", name: "日記と雑記の個人サイト NKN"},
+  {url: "http://www2u.biglobe.ne.jp/~t_take/", name: "TAKEの部屋（個人雑記・日記）"},
+  {url: "http://www7b.biglobe.ne.jp/~honda_akira/", name: "本田の趣味室（個人サイト）"},
+  {url: "http://www.yk.rim.or.jp/~koyama/", name: "こやまの雑記（個人ホームページ）"},
+  {url: "http://www.yamasakikei.com", name: "山崎啓の個人サイト"},
+  {url: "http://www11.plala.or.jp/f-angel/", name: "F-ANGEL（個人ブログ）"},
+  {url: "http://www7.plala.or.jp/daimaru/", name: "大丸のページ（個人）"},
+  {url: "http://www2.odn.ne.jp/~aab87490/", name: "個人日記・手記：ODN個人サイト"},
+  {url: "https://www.aozora.gr.jp", name: "青空文庫（個人+団体の境界・活動系）"},
+  {url: "http://www.asahi-net.or.jp/~FV9S-TNSK/", name: "たなかの日記（個人）"},
+  {url: "http://www004.upp.so-net.ne.jp/kunizo/", name: "クニゾーの部屋（個人制作）"},
+  {url: "http://www2s.biglobe.ne.jp/~nippon/", name: "日本の風景（個人による写真サイト）"},
+  {url: "http://www2u.biglobe.ne.jp/~penguin/", name: "ペンギンのページ（個人系）"},
+  {url: "http://www7a.biglobe.ne.jp/~mmr/", name: "MMR趣味室（個人サイト）"},
+  {url: "http://www2.wbs.ne.jp/~mt-fuji/", name: "富士山観測（個人運営）」"},
+  {url: "http://www.geocities.jp/kazuspace/", name: "かずスペース（個人サイト）"},
+  {url: "http://www.ne.jp/asahi/kasa/karakusa/", name: "からくさ草子（個人・日記・創作系）"},
+  {url: "http://www.ne.jp/asahi/sakato/room/", name: "さかとの部屋（個人）"},
+  {url: "http://www2u.biglobe.ne.jp/~kotobuki/", name: "ことぶきの趣味日記（個人）」"},
+  {url: "http://www2.ttcn.ne.jp/~fujiki/", name: "藤木の個人研究ページ"},
+];
+
+  </script>
+</body>
+</html>
+
+let remainingSites = [...sites]; // コピーを作る
+
+document.getElementById("randomButton").addEventListener("click", function() {
+  if (remainingSites.length === 0) {
+    alert("もう残っているサイトはありません！");
+    return;
+  }
+
+  // ランダムに1つ選ぶ
+  const index = Math.floor(Math.random() * remainingSites.length);
+  const site = remainingSites[index];
+
+  // 選んだサイトを配列から削除
+  remainingSites.splice(index, 1);
+
+  // 新しいタブで開く
+  window.open(site.url, "_blank");
+});
